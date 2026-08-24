@@ -11,9 +11,8 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const socialTitle = "두윤곤 프로 레슨";
-const socialDescription =
-  "GC QUAD 런치 모니터와 영상 분석으로 원인을 진단하는 두윤곤 프로의 골프 레슨.";
+const socialTitle = "두윤곤 프로";
+const socialDescription = "데이터와 영상 분석으로 원인을 진단합니다.";
 const configuredSiteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
   process.env.VERCEL_PROJECT_PRODUCTION_URL ??
