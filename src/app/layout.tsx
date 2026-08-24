@@ -3,7 +3,14 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Geist } from "next/font/google";
 import { AppShell } from "@/components/app-shell";
-import { site } from "@/lib/site";
+import {
+  absoluteUrl,
+  seoKeywords,
+  siteDescription,
+  siteName,
+  siteUrl,
+} from "@/lib/seo";
+import { links, site } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -11,44 +18,56 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const socialTitle = "두윤곤 프로";
-const socialDescription = "데이터와 영상 분석으로 원인을 진단합니다.";
-const configuredSiteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  process.env.VERCEL_PROJECT_PRODUCTION_URL ??
-  "http://localhost:3000";
-const siteUrl = configuredSiteUrl.startsWith("http")
-  ? configuredSiteUrl
-  : `https://${configuredSiteUrl}`;
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   applicationName: site.brand,
   title: {
-    default: `${site.brand} | 기초는 확실하게, 진단은 정확하게`,
+    default: `${siteName} | 도봉구 골프 레슨·스윙 분석`,
     template: `%s | ${site.brand}`,
   },
-  description: "데이터와 영상 분석으로 원인을 진단합니다.",
+  description: siteDescription,
+  keywords: [...seoKeywords],
+  authors: [{ name: site.proName, url: siteUrl }],
+  creator: site.proName,
+  publisher: site.brand,
+  category: "골프 레슨",
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+    : undefined,
   openGraph: {
     type: "website",
     locale: "ko_KR",
     url: "/",
-    title: socialTitle,
-    siteName: socialTitle,
-    description: socialDescription,
+    title: siteName,
+    siteName,
+    description: siteDescription,
     images: [
       {
         url: "/api/og",
         width: 1200,
         height: 630,
-        alt: "두윤곤 프로",
+        alt: siteName,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: socialTitle,
-    description: socialDescription,
+    title: siteName,
+    description: siteDescription,
     images: ["/api/og"],
   },
   manifest: "/manifest.webmanifest",
@@ -69,6 +88,50 @@ export const metadata: Metadata = {
   },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: siteName,
+      description: siteDescription,
+      inLanguage: "ko-KR",
+    },
+    {
+      "@type": "SportsActivityLocation",
+      "@id": `${siteUrl}/#business`,
+      name: siteName,
+      url: siteUrl,
+      image: absoluteUrl("/photos/pro-1.png"),
+      description: siteDescription,
+      telephone: site.phone.replace(/^0/, "+82"),
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "마들로 598 서울문화고등학교 교내",
+        addressLocality: "도봉구",
+        addressRegion: "서울특별시",
+        addressCountry: "KR",
+      },
+      sameAs: [links.instagram, links.youtube],
+    },
+    {
+      "@type": "Person",
+      "@id": `${siteUrl}/#person`,
+      name: site.proName,
+      jobTitle: site.proTitle,
+      description: site.proRole,
+      image: absoluteUrl("/photos/pro-1.png"),
+      url: siteUrl,
+      worksFor: {
+        "@id": `${siteUrl}/#business`,
+      },
+      sameAs: [links.instagram, links.youtube],
+    },
+  ],
+};
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -86,6 +149,12 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${geistSans.variable} h-full antialiased`}>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+          }}
+        />
         <AppShell>{children}</AppShell>
         <Analytics />
         <SpeedInsights />

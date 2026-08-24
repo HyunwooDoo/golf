@@ -29,6 +29,7 @@ import { LoopClip } from "@/components/loop-clip";
 import { KakaoMap } from "@/components/kakao-map";
 import { PhotoFade } from "@/components/photo-fade";
 import { Reveal } from "@/components/reveal";
+import { createPageMetadata } from "@/lib/seo";
 import {
   amenities,
   analyzerPhotos,
@@ -48,11 +49,13 @@ import {
   site,
 } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "정기 레슨",
+export const metadata: Metadata = createPageMetadata({
+  title: "도봉구 정기 골프 레슨",
   description:
-    "문화골프연습장에서 꾸준한 반복과 데이터 분석으로 기본을 완성하는 정기 골프 레슨.",
-};
+    "서울 도봉구 문화골프연습장에서 두윤곤 프로와 꾸준한 반복, GC QUAD 데이터 분석으로 기본을 완성하는 정기 골프 레슨입니다.",
+  path: "/regular-lessons",
+  keywords: ["도봉구 정기 골프 레슨", "문화골프연습장 정기 레슨"],
+});
 
 const targets = [
   "골프를 처음 시작해 기초를 제대로 배우고 싶은 분",
