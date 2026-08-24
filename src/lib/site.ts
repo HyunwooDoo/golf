@@ -16,6 +16,8 @@ const env = {
   consultationHours: process.env.NEXT_PUBLIC_CONSULTATION_HOURS,
 };
 
+const defaultAddress = "서울특별시 도봉구 마들로 598 서울문화고등학교 교내";
+
 export const site = {
   brand: "두윤곤 골프 레슨",
   brandMark: "DOO GOLF LESSON",
@@ -29,7 +31,7 @@ export const site = {
   instagramHandle: "yunkondo",
   youtubeName: "두윤곤프로",
   youtubeVideoId: "DHDhN2r0Tm4",
-  address: env.address ?? "상세 주소 준비 중",
+  address: env.address ?? defaultAddress,
   consultationHours: env.consultationHours ?? "매일 오전 7시 – 오후 11시",
   parking: "서울문화고등학교 교내, 골프연습장 앞 주차장 이용 가능",
   facilityHours: "월요일 – 일요일 매일 운영",
@@ -41,7 +43,9 @@ export const site = {
 
 export const links = {
   kakaoChannel: env.kakaoChannelUrl,
-  kakaoMap: env.kakaoMapUrl,
+  kakaoMap:
+    env.kakaoMapUrl ??
+    `https://map.kakao.com/link/search/${encodeURIComponent("문화골프연습장 도봉구")}`,
   instagram: env.instagramUrl ?? "https://www.instagram.com/yunkondo",
   youtube: env.youtubeUrl ?? "https://www.youtube.com/@두윤곤프로_youcandoit",
   naverPlace: env.naverPlaceUrl,

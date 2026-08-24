@@ -17,6 +17,7 @@ import {
   TvMinimalPlay,
 } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
+import { KakaoMap } from "@/components/kakao-map";
 import { Reveal } from "@/components/reveal";
 import { YoutubeEmbed } from "@/components/youtube-embed";
 import { links, phoneHref, site, smsHref } from "@/lib/site";
@@ -257,15 +258,11 @@ export default function ContactPage() {
           }
         />
 
-        <div
-          className="media-placeholder contact-map-placeholder"
-          role="img"
-          aria-label="연습장 지도 자리"
-        >
-          <MapPin aria-hidden="true" />
-          <span>연습장 지도 영역</span>
-          <small>LOCATION MAP</small>
-        </div>
+        <KakaoMap
+          className="contact-map-placeholder"
+          placeName={site.place}
+          address={site.address}
+        />
 
         <dl className="contact-location-details">
           <div>

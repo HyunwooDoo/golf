@@ -26,6 +26,7 @@ import {
   Video,
 } from "lucide-react";
 import { LoopClip } from "@/components/loop-clip";
+import { KakaoMap } from "@/components/kakao-map";
 import { PhotoFade } from "@/components/photo-fade";
 import { Reveal } from "@/components/reveal";
 import {
@@ -584,15 +585,11 @@ export default function RegularLessonsPage() {
           title={`${site.place} 오시는 길`}
         />
 
-        <div
-          className="media-placeholder location-map"
-          role="img"
-          aria-label="문화골프연습장 지도 자리"
-        >
-          <MapPin aria-hidden="true" />
-          <span>카카오맵 지도 영역</span>
-          <small>LOCATION MAP</small>
-        </div>
+        <KakaoMap
+          className="location-map"
+          placeName={site.place}
+          address={site.address}
+        />
 
         <PhotoFade
           images={parkingArea}

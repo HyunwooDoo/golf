@@ -11,7 +11,19 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+const socialTitle = "두윤곤 프로 레슨";
+const socialDescription =
+  "GC QUAD 런치 모니터와 영상 분석으로 원인을 진단하는 두윤곤 프로의 골프 레슨.";
+const configuredSiteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  process.env.VERCEL_PROJECT_PRODUCTION_URL ??
+  "http://localhost:3000";
+const siteUrl = configuredSiteUrl.startsWith("http")
+  ? configuredSiteUrl
+  : `https://${configuredSiteUrl}`;
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   applicationName: site.brand,
   title: {
     default: `${site.brand} | 기초는 확실하게, 진단은 정확하게`,
@@ -19,6 +31,28 @@ export const metadata: Metadata = {
   },
   description:
     "GC QUAD 런치 모니터와 영상 분석으로 원인을 진단하고, 반복 레슨으로 변화를 완성하는 두윤곤 프로의 골프 레슨.",
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: "/",
+    title: socialTitle,
+    siteName: socialTitle,
+    description: socialDescription,
+    images: [
+      {
+        url: "/api/og",
+        width: 1200,
+        height: 630,
+        alt: "두윤곤 프로",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: socialTitle,
+    description: socialDescription,
+    images: ["/api/og"],
+  },
   manifest: "/manifest.webmanifest",
   formatDetection: {
     telephone: false,
