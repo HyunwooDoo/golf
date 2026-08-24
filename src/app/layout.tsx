@@ -28,8 +28,7 @@ export const metadata: Metadata = {
     default: `${site.brand} | 기초는 확실하게, 진단은 정확하게`,
     template: `%s | ${site.brand}`,
   },
-  description:
-    "GC QUAD 런치 모니터와 영상 분석으로 원인을 진단하고, 반복 레슨으로 변화를 완성하는 두윤곤 프로의 골프 레슨.",
+  description: "데이터와 영상 분석으로 원인을 진단합니다.",
   openGraph: {
     type: "website",
     locale: "ko_KR",
