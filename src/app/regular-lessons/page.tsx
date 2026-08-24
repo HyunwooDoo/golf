@@ -101,8 +101,8 @@ function SectionHeading({
 }: {
   index: string;
   eyebrow: string;
-  title: string;
-  description?: string;
+  title: ReactNode;
+  description?: ReactNode;
 }) {
   return (
     <div className="section-heading">
@@ -167,11 +167,6 @@ export default function RegularLessonsPage() {
             className="regular-hero-photo"
             priority
           />
-          <div className="regular-hero-badge">
-            <span>REGULAR</span>
-            <strong>꾸준하게</strong>
-            <p>진단 · 교정 · 반복 · 확인</p>
-          </div>
         </Reveal>
 
         <Reveal className="hero-actions" delay={0.12}>
@@ -284,7 +279,13 @@ export default function RegularLessonsPage() {
         <SectionHeading
           index="02"
           eyebrow="ANALYSIS SYSTEM"
-          title="보이지 않던 문제를 장비로 확인합니다"
+          title={
+            <>
+              보이지 않던 문제를
+              <br />
+              장비로 확인합니다
+            </>
+          }
           description="감각에만 의존하지 않습니다. 촬영 영상과 측정 결과를 함께 비교해 교정 방향을 분명하게 설명합니다."
         />
 
@@ -358,7 +359,13 @@ export default function RegularLessonsPage() {
         <SectionHeading
           index="03"
           eyebrow="LESSON FIT"
-          title="이런 분께 정기 레슨을 추천합니다"
+          title={
+            <>
+              이런 분께
+              <br />
+              정기 레슨을 추천합니다
+            </>
+          }
         />
 
         <ul className="regular-target-list">
@@ -419,7 +426,13 @@ export default function RegularLessonsPage() {
         <SectionHeading
           index="04"
           eyebrow="PACKAGE"
-          title="연습 목표에 맞는 정기 패키지"
+          title={
+            <>
+              연습 목표에 맞는
+              <br />
+              정기 패키지
+            </>
+          }
           description="레슨비와 타석비 포함 여부는 상담 시 정확한 금액으로 안내해 드립니다."
         />
 

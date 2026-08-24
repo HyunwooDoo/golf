@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -15,6 +16,7 @@ import {
   Trophy,
 } from "lucide-react";
 import { HeroGallery } from "@/components/hero-gallery";
+import { LoopClip } from "@/components/loop-clip";
 import { PhotoFade } from "@/components/photo-fade";
 import { Reveal } from "@/components/reveal";
 import { lessonScenes, proPhotos } from "@/lib/photos";
@@ -113,8 +115,8 @@ function SectionHeading({
 }: {
   index: string;
   eyebrow: string;
-  title: string;
-  description?: string;
+  title: ReactNode;
+  description?: ReactNode;
 }) {
   return (
     <div className="section-heading">
@@ -199,7 +201,11 @@ export default function Home() {
         <SectionHeading
           index="01"
           eyebrow="COACH PROFILE"
-          title="감이 아니라, 데이터로 설명합니다"
+          title={
+            <>
+              감이 아니라, <br /> 데이터로 설명합니다
+            </>
+          }
           description={`${site.analyzerNote} ${site.analyzer}로 스윙 자세와 동작을 과학적으로 분석하고, 체계적인 교정으로 해결책까지 이어가는 프라이빗 레슨입니다.`}
         />
 
@@ -277,7 +283,13 @@ export default function Home() {
         <SectionHeading
           index="02"
           eyebrow="LESSON METHOD"
-          title="진단부터 피드백까지, 이유 있는 네 단계"
+          title={
+            <>
+              진단부터 피드백까지,
+              <br />
+              이유 있는 네 단계
+            </>
+          }
         />
 
         <ol className="philosophy-list">
@@ -311,53 +323,36 @@ export default function Home() {
       <Reveal className="content-section results-section">
         <SectionHeading
           index="03"
-          eyebrow="REAL CHANGES"
-          title="느낌이 아니라, 눈으로 확인하는 변화"
-          description="회원 동의를 받은 실제 사례가 준비되면 전후 영상과 측정 수치가 이 영역에 표시됩니다."
+          eyebrow="REAL SWING"
+          title="실제 스윙 & 분석 화면"
         />
 
-        <div className="comparison-card">
-          <div className="comparison-media">
-            <div
-              className="media-placeholder"
-              role="img"
-              aria-label="레슨 전 스윙 영상 자리"
-            >
-              <span>레슨 전 스윙 영상</span>
-              <small>BEFORE</small>
-            </div>
-            <div
-              className="media-placeholder"
-              role="img"
-              aria-label="레슨 후 스윙 영상 자리"
-            >
-              <span>레슨 후 스윙 영상</span>
-              <small>AFTER</small>
-            </div>
-          </div>
-          <div className="comparison-summary">
-            <div>
-              <span>스코어</span>
-              <strong>—</strong>
-            </div>
-            <div>
-              <span>구질</span>
-              <strong>—</strong>
-            </div>
-            <div>
-              <span>비거리</span>
-              <strong>—</strong>
-            </div>
-          </div>
-          <p>
-            수치는 실제 측정 자료를 기준으로 기록하며, 결과는 개인에 따라 달라질
-            수 있습니다.
-          </p>
+        <div className="swing-showcase">
+          <LoopClip
+            name="swing-pro"
+            label={`${site.proName} 프로 스윙`}
+            className="swing-showcase-portrait"
+            overlay={
+              <>
+                <span className="photo-eyebrow">SWING</span>
+                <span className="photo-label">{site.proName} 프로 스윙</span>
+              </>
+            }
+          />
+          <LoopClip
+            name="lesson-analysis"
+            label="GC QUAD 분석 화면에서 스윙을 비교하는 모습"
+            className="swing-showcase-wide"
+            overlay={
+              <>
+                <span className="photo-eyebrow">ANALYSIS</span>
+                <span className="photo-label">
+                  분석 화면에서 나란히 비교합니다
+                </span>
+              </>
+            }
+          />
         </div>
-
-        <Link href="/reviews" className="section-link">
-          레슨 과정과 후기 살펴보기 <MoveRight aria-hidden="true" />
-        </Link>
       </Reveal>
 
       <Reveal className="content-section audience-section">
@@ -436,7 +431,13 @@ export default function Home() {
         <SectionHeading
           index="06"
           eyebrow="FAQ"
-          title="레슨 전, 많이 물어보시는 질문"
+          title={
+            <>
+              레슨 전,
+              <br />
+              많이 물어보시는 질문
+            </>
+          }
         />
 
         <div className="faq-list">

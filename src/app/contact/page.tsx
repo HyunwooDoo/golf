@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -13,11 +14,11 @@ import {
   MessageSquareText,
   Navigation,
   Phone,
-  Play,
   TvMinimalPlay,
 } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
 import { Reveal } from "@/components/reveal";
+import { YoutubeEmbed } from "@/components/youtube-embed";
 import { links, phoneHref, site, smsHref } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -61,8 +62,8 @@ function SectionHeading({
 }: {
   index: string;
   eyebrow: string;
-  title: string;
-  description?: string;
+  title: ReactNode;
+  description?: ReactNode;
 }) {
   return (
     <div className="section-heading">
@@ -221,17 +222,11 @@ export default function ContactPage() {
         />
 
         <div className="youtube-preview-card">
-          <div
-            className="media-placeholder youtube-thumbnail"
-            role="img"
-            aria-label="유튜브 영상 썸네일 자리"
-          >
-            <span className="youtube-play" aria-hidden="true">
-              <Play fill="currentColor" />
-            </span>
-            <span>유튜브 영상 썸네일</span>
-            <small>LESSON VIDEO</small>
-          </div>
+          <YoutubeEmbed
+            videoId={site.youtubeVideoId}
+            title={`${site.youtubeName} 레슨 영상`}
+            poster="/photos/youtube-thumb.jpg"
+          />
           <div className="youtube-preview-info">
             <div>
               <TvMinimalPlay aria-hidden="true" />
@@ -253,7 +248,13 @@ export default function ContactPage() {
         <SectionHeading
           index="03"
           eyebrow="LOCATION & HOURS"
-          title="연습장 위치와 상담 가능 시간"
+          title={
+            <>
+              연습장 위치와
+              <br />
+              상담 가능 시간
+            </>
+          }
         />
 
         <div
@@ -319,7 +320,13 @@ export default function ContactPage() {
         <SectionHeading
           index="04"
           eyebrow="FAQ"
-          title="상담 전, 많이 물어보시는 질문"
+          title={
+            <>
+              상담 전,
+              <br />
+              많이 물어보시는 질문
+            </>
+          }
         />
 
         <div className="faq-list">

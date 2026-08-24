@@ -28,6 +28,7 @@ export const site = {
   instagramName: "두윤곤 프로",
   instagramHandle: "yunkondo",
   youtubeName: "두윤곤프로",
+  youtubeVideoId: "DHDhN2r0Tm4",
   address: env.address ?? "상세 주소 준비 중",
   consultationHours: env.consultationHours ?? "매일 오전 7시 – 오후 11시",
   parking: "서울문화고등학교 교내, 골프연습장 앞 주차장 이용 가능",
@@ -42,7 +43,7 @@ export const links = {
   kakaoChannel: env.kakaoChannelUrl,
   kakaoMap: env.kakaoMapUrl,
   instagram: env.instagramUrl ?? "https://www.instagram.com/yunkondo",
-  youtube: env.youtubeUrl,
+  youtube: env.youtubeUrl ?? "https://www.youtube.com/@두윤곤프로_youcandoit",
   naverPlace: env.naverPlaceUrl,
   googleReview: env.googleReviewUrl,
 } as const;

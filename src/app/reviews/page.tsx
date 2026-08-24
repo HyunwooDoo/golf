@@ -72,8 +72,8 @@ function SectionHeading({
 }: {
   index: string;
   eyebrow: string;
-  title: string;
-  description?: string;
+  title: ReactNode;
+  description?: ReactNode;
 }) {
   return (
     <div className="section-heading">

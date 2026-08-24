@@ -15,7 +15,6 @@ import {
   MoveRight,
   PackageCheck,
   Phone,
-  Play,
   ScanLine,
   Target,
   TrendingUp,
@@ -161,8 +160,8 @@ function SectionHeading({
 }: {
   index: string;
   eyebrow: string;
-  title: string;
-  description?: string;
+  title: ReactNode;
+  description?: ReactNode;
 }) {
   return (
     <div className="section-heading">
@@ -227,15 +226,6 @@ export default function PrivateLessonsPage() {
             label="필드에서 진행한 개인 레슨 영상"
             className="private-hero-clip"
           />
-          <div className="private-video-card">
-            <span className="video-play" aria-hidden="true">
-              <Play fill="currentColor" />
-            </span>
-            <div>
-              <span>VIDEO FEEDBACK</span>
-              <strong>전후 스윙 비교 영상 제공</strong>
-            </div>
-          </div>
         </Reveal>
 
         <Reveal className="hero-actions" delay={0.12}>
@@ -254,7 +244,13 @@ export default function PrivateLessonsPage() {
         <SectionHeading
           index="01"
           eyebrow="WHY PRIVATE"
-          title="정기 레슨과 무엇이 다른가요?"
+          title={
+            <>
+              정기 레슨과
+              <br />
+              무엇이 다른가요?
+            </>
+          }
           description="정기 레슨이 꾸준한 주기로 기본과 루틴을 만드는 과정이라면, 개인 레슨은 하나의 문제와 목표에 수업의 밀도를 집중하는 방식입니다. 같은 스윙이라도 원인과 목표는 사람마다 다릅니다."
         />
 
@@ -314,23 +310,23 @@ export default function PrivateLessonsPage() {
           description="수업 시간만 채우지 않습니다. 다음 연습으로 그대로 이어갈 수 있는 결과물을 함께 드립니다."
         />
 
-        <div className="private-method-media">
-          <div
-            className="media-placeholder"
-            role="img"
-            aria-label="레슨 전 스윙 영상 자리"
-          >
-            <span>레슨 전 스윙</span>
-            <small>BEFORE</small>
-          </div>
-          <div
-            className="media-placeholder"
-            role="img"
-            aria-label="레슨 후 스윙 영상 자리"
-          >
-            <span>레슨 후 스윙</span>
-            <small>AFTER</small>
-          </div>
+        <div className="method-note-grid">
+          <article>
+            <span>BEFORE</span>
+            <h3>지금의 스윙을 그대로 기록합니다</h3>
+            <p>
+              첫 수업에서 정면과 측면 영상을 촬영하고, 임팩트 데이터를 함께
+              남깁니다. 고치기 전의 기준점을 분명히 만드는 과정입니다.
+            </p>
+          </article>
+          <article>
+            <span>AFTER</span>
+            <h3>달라진 움직임을 나란히 확인합니다</h3>
+            <p>
+              교정 후 같은 자리에서 다시 촬영해 무엇이 어떻게 바뀌었는지
+              비교합니다. 느낌이 아니라 화면으로 확인하고 마칩니다.
+            </p>
+          </article>
         </div>
 
         <div className="private-method-flow">
@@ -387,7 +383,13 @@ export default function PrivateLessonsPage() {
         <SectionHeading
           index="03"
           eyebrow="PROGRAM"
-          title="목표에 맞게 선택하는 개인 레슨"
+          title={
+            <>
+              목표에 맞게 선택하는
+              <br />
+              개인 레슨
+            </>
+          }
         />
 
         <div className="private-program-list">
@@ -498,16 +500,24 @@ export default function PrivateLessonsPage() {
           기록합니다.
         </p>
 
+        {/* 후기 페이지 준비 후 연결합니다.
         <Link href="/reviews" className="section-link">
           레슨 과정과 후기 보기 <MoveRight aria-hidden="true" />
         </Link>
+        */}
       </Reveal>
 
       <Reveal className="content-section private-package-section">
         <SectionHeading
           index="06"
           eyebrow="FOCUSED PACKAGE"
-          title="변화에 집중하는 5회 · 10회 패키지"
+          title={
+            <>
+              변화에 집중하는
+              <br />
+              5회 · 10회 패키지
+            </>
+          }
           description="정확한 구성과 가격, 유효기간은 상담 시 목표에 맞춰 안내해 드립니다."
         />
 

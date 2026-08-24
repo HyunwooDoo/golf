@@ -9,7 +9,6 @@ import {
   House,
   MessageCircleMore,
   MessagesSquare,
-  Star,
   UserRound,
 } from "lucide-react";
 import type { ReactNode } from "react";
@@ -69,10 +68,12 @@ export function AppShell({ children }: { children: ReactNode }) {
       <main className="site-content">{children}</main>
 
       <aside className="quick-actions" aria-label="빠른 이동">
+        {/* 후기 페이지 준비 후 다시 노출합니다.
         <Link href="/reviews" className="quick-action review-action">
           <Star aria-hidden="true" />
           <span>후기</span>
         </Link>
+        */}
         <Link
           href={kakaoChannelHref}
           className="quick-action kakao-action"
