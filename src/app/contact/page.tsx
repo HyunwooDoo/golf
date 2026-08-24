@@ -154,7 +154,7 @@ export default function ContactPage() {
             </span>
           )}
 
-          <Link href={phoneHref} className="contact-method-card">
+          <a href={phoneHref} className="contact-method-card">
             <span className="contact-method-icon">
               <Phone aria-hidden="true" />
             </span>
@@ -164,9 +164,9 @@ export default function ContactPage() {
               <small>{site.phone}</small>
             </div>
             <ArrowUpRight aria-hidden="true" />
-          </Link>
+          </a>
 
-          <Link href={smsHref} className="contact-method-card">
+          <a href={smsHref} className="contact-method-card">
             <span className="contact-method-icon">
               <MessageSquareText aria-hidden="true" />
             </span>
@@ -176,7 +176,7 @@ export default function ContactPage() {
               <small>{site.phone}</small>
             </div>
             <ArrowUpRight aria-hidden="true" />
-          </Link>
+          </a>
 
           {links.instagram ? (
             <Link

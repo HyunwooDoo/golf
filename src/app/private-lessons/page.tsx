@@ -634,10 +634,10 @@ export default function PrivateLessonsPage() {
           현재 고민과 목표를 알려주시면 적합한 개인 레슨을 안내해 드립니다.
         </span>
         <div className="private-final-actions">
-          <Link href={phoneHref} className="glass-button glass-button-call">
+          <a href={phoneHref} className="glass-button glass-button-call">
             <Phone aria-hidden="true" />
             {site.phone}
-          </Link>
+          </a>
           <KakaoLink className="glass-button glass-button-kakao">
             <MessageCircleMore aria-hidden="true" />
             카톡으로 상담하기

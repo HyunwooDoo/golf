@@ -29,11 +29,23 @@ export const bay2F: readonly PhotoFadeImage[] = [
   { src: "/photos/bay-2f-6.jpg", alt: "문화골프연습장 2층 타석 측면" },
 ];
 
-/** GC QUAD 장비 안내 자료 */
+/**
+ * GC QUAD 장비 안내 자료.
+ * 세로 비율이 거의 같은 두 장만 사용해 전환할 때 높이가 흔들리지 않게 합니다.
+ */
 export const analyzerPhotos: readonly PhotoFadeImage[] = [
-  { src: "/photos/gcquad-1.jpg", alt: "GC QUAD 런치 모니터 소개 자료" },
-  { src: "/photos/gcquad-2.jpg", alt: "GC QUAD 레슨 안내 자료" },
-  { src: "/photos/gcquad-3.jpg", alt: "GC QUAD 실측 데이터 안내 자료" },
+  {
+    src: "/photos/gcquad-1.jpg",
+    alt: "세계 최고의 런치 모니터 GC QUAD 안내 자료",
+    width: 574,
+    height: 1400,
+  },
+  {
+    src: "/photos/gcquad-3.jpg",
+    alt: "부치 하먼이 사용하는 GC QUAD 안내 자료",
+    width: 561,
+    height: 1400,
+  },
 ];
 
 /** 쇼트게임 연습 공간 */

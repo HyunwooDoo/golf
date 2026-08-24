@@ -13,6 +13,9 @@ import type { ReactNode } from "react";
 export type PhotoFadeImage = {
   src: string;
   alt: string;
+  /** fluidHeight 를 쓸 때 필요한 원본 크기 */
+  width?: number;
+  height?: number;
 };
 
 type PhotoFadeProps = {
@@ -32,6 +35,8 @@ type PhotoFadeProps = {
   aura?: boolean;
   /** 전환 인디케이터 표시 여부 */
   showDots?: boolean;
+  /** 사진 비율대로 높이를 맞춥니다 (여백 없이 가로 꽉 채우기) */
+  fluidHeight?: boolean;
 };
 
 export function PhotoFade({
@@ -44,11 +49,26 @@ export function PhotoFade({
   fit = "cover",
   aura = false,
   showDots = true,
+  fluidHeight = false,
 }: PhotoFadeProps) {
   const shouldReduceMotion = useReducedMotion();
   const frameRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(frameRef, { amount: 0.25 });
   const [index, setIndex] = useState(0);
+  const [frameWidth, setFrameWidth] = useState(0);
+
+  useEffect(() => {
+    if (!fluidHeight) return;
+    const frame = frameRef.current;
+    if (!frame) return;
+
+    const observer = new ResizeObserver(([entry]) => {
+      setFrameWidth(entry.contentRect.width);
+    });
+    observer.observe(frame);
+
+    return () => observer.disconnect();
+  }, [fluidHeight]);
 
   const canRotate = images.length > 1 && !shouldReduceMotion;
 
@@ -63,11 +83,29 @@ export function PhotoFade({
   }, [canRotate, images.length, interval, isInView]);
 
   const current = images[index];
+  const fluidRatio =
+    fluidHeight && current.width && current.height
+      ? current.height / current.width
+      : null;
 
   return (
-    <div
+    <motion.div
       ref={frameRef}
       className={["photo-frame", className].filter(Boolean).join(" ")}
+      style={
+        fluidRatio
+          ? { aspectRatio: `${current.width} / ${current.height}` }
+          : undefined
+      }
+      animate={
+        fluidRatio && frameWidth
+          ? { height: Math.round(frameWidth * fluidRatio) }
+          : undefined
+      }
+      transition={{
+        duration: shouldReduceMotion ? 0 : 0.55,
+        ease: [0.22, 1, 0.36, 1],
+      }}
     >
       {aura ? (
         <div className="photo-aura" aria-hidden="true">
@@ -142,6 +180,6 @@ export function PhotoFade({
           ))}
         </div>
       ) : null}
-    </div>
+    </motion.div>
   );
 }

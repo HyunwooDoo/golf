@@ -14,7 +14,7 @@ import {
   Target,
   Trophy,
 } from "lucide-react";
-import { LoopClip } from "@/components/loop-clip";
+import { HeroGallery } from "@/components/hero-gallery";
 import { PhotoFade } from "@/components/photo-fade";
 import { Reveal } from "@/components/reveal";
 import { lessonScenes, proPhotos } from "@/lib/photos";
@@ -151,29 +151,15 @@ export default function Home() {
           </h1>
         </Reveal>
 
-        <Reveal className="hero-media-grid" delay={0.08}>
-          <PhotoFade
-            images={lessonScenes}
-            className="hero-photo-lesson"
-            priority
-            sizes="(min-width: 721px) 430px, 62vw"
-            overlay={
-              <>
-                <span className="photo-eyebrow">LESSON</span>
-                <span className="photo-label">{site.place}</span>
-              </>
-            }
-          />
-          <LoopClip
-            name="swing-pro"
-            label={`${site.proName} 프로의 스윙 영상`}
-            className="hero-clip-swing"
-            overlay={
-              <>
-                <span className="photo-eyebrow">SWING</span>
-                <span className="photo-label">{site.proName} 프로</span>
-              </>
-            }
+        <Reveal delay={0.08}>
+          <HeroGallery
+            photos={lessonScenes}
+            clip={{
+              name: "swing-pro",
+              label: `${site.proName} 프로의 스윙 영상`,
+            }}
+            photoOverlay={{ eyebrow: "LESSON", label: site.place }}
+            clipOverlay={{ eyebrow: "SWING", label: `${site.proName} 프로` }}
           />
         </Reveal>
 

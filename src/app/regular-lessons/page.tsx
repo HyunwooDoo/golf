@@ -292,8 +292,8 @@ export default function RegularLessonsPage() {
           <PhotoFade
             images={analyzerPhotos}
             className="system-photo-frame"
-            fit="contain"
             interval={5600}
+            fluidHeight
             sizes="(min-width: 721px) 380px, 92vw"
           />
           <div className="system-feature-list">
@@ -664,10 +664,10 @@ export default function RegularLessonsPage() {
           바로 안내해 드립니다.
         </span>
         <div className="regular-final-actions">
-          <Link href={phoneHref} className="glass-button glass-button-call">
+          <a href={phoneHref} className="glass-button glass-button-call">
             <Phone aria-hidden="true" />
             {site.phone}
-          </Link>
+          </a>
           <KakaoLink className="glass-button glass-button-kakao">
             <MessageCircleMore aria-hidden="true" />
             카톡으로 신청하기
