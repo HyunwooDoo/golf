@@ -136,10 +136,6 @@ export default function Home() {
     <div className="intro-page">
       <section className="intro-hero" aria-labelledby="intro-title">
         <Reveal className="intro-hero-copy">
-          <p className="intro-kicker">
-            <span aria-hidden="true" />
-            GOLF LESSON · {site.proName} 프로
-          </p>
           <h1
             id="intro-title"
             className="flex flex-col items-center justify-center text-center"
@@ -188,8 +184,8 @@ export default function Home() {
             <ArrowRight className="button-arrow" aria-hidden="true" />
           </KakaoLink>
           <p>
-            지금 가장 큰 고민 한 가지만 남겨주세요. 진단 방향부터 안내해
-            드립니다.
+            지금 가장 큰 고민 한 가지만 남겨주세요. <br />
+            진단 방향부터 안내해 드립니다.
           </p>
         </Reveal>
       </section>
@@ -207,8 +203,9 @@ export default function Home() {
           경험해 보세요.
         </h2>
         <p>
-          <strong>열심히 연습하는데 실력이 그대로인가요?</strong> 한 번의 체험
-          레슨으로 문제의 원인을 파악하고, 진단과 해결책까지 정리해 드립니다.
+          <strong>열심히 연습하는데 실력이 그대로인가요?</strong> <br /> 한 번의
+          체험 레슨으로 문제의 원인을 파악하고, <br />
+          진단과 해결책까지 정리해 드립니다.
         </p>
       </Reveal>
 
