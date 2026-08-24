@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Geist } from "next/font/google";
-import Script from "next/script";
 import { AppShell } from "@/components/app-shell";
+import { site } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,12 +12,13 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  applicationName: "Golf Lesson",
+  applicationName: site.brand,
   title: {
-    default: "Golf Lesson",
-    template: "%s | Golf Lesson",
+    default: `${site.brand} | 기초는 확실하게, 진단은 정확하게`,
+    template: `%s | ${site.brand}`,
   },
-  description: "기초부터 정확하게 배우는 데이터 기반 골프 레슨",
+  description:
+    "GC QUAD 런치 모니터와 영상 분석으로 원인을 진단하고, 반복 레슨으로 변화를 완성하는 두윤곤 프로의 골프 레슨.",
   manifest: "/manifest.webmanifest",
   formatDetection: {
     telephone: false,
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Golf Lesson",
+    title: site.brand,
   },
   icons: {
     icon: [
@@ -41,35 +42,9 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   viewportFit: "cover",
-  colorScheme: "light dark",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#080808" },
-  ],
+  colorScheme: "light",
+  themeColor: "#ffffff",
 };
-
-const themeInitializer = `
-  (function () {
-    try {
-      var savedTheme = localStorage.getItem("golf-lesson-theme");
-      var systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
-      var theme = savedTheme === "dark" || savedTheme === "light"
-        ? savedTheme
-        : systemTheme;
-
-      document.documentElement.dataset.theme = theme;
-      document.documentElement.style.colorScheme = theme;
-
-      document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll('meta[name="theme-color"]').forEach(function (meta) {
-          meta.setAttribute("content", theme === "dark" ? "#080808" : "#ffffff");
-        });
-      });
-    } catch (_) {}
-  })();
-`;
 
 export default function RootLayout({
   children,
@@ -77,15 +52,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="ko"
-      className={`${geistSans.variable} h-full antialiased`}
-      suppressHydrationWarning
-    >
+    <html lang="ko" className={`${geistSans.variable} h-full antialiased`}>
       <body>
-        <Script id="theme-initializer" strategy="beforeInteractive">
-          {themeInitializer}
-        </Script>
         <AppShell>{children}</AppShell>
         <Analytics />
         <SpeedInsights />

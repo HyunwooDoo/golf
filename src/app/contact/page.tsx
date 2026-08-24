@@ -18,45 +18,38 @@ import {
 } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
 import { Reveal } from "@/components/reveal";
+import { links, phoneHref, site, smsHref } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "골프 레슨 문의",
-  description: "카카오톡, 전화, 문자로 편하게 상담하는 골프 레슨 문의 페이지",
+  title: "문의",
+  description:
+    "카카오톡 · 전화 · 문자로 편하게 상담하는 두윤곤 프로 골프 레슨 문의 페이지.",
 };
-
-const kakaoChannelUrl = process.env.NEXT_PUBLIC_KAKAO_CHANNEL_URL;
-const lessonPhone = process.env.NEXT_PUBLIC_LESSON_PHONE;
-const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL;
-const youtubeUrl = process.env.NEXT_PUBLIC_YOUTUBE_URL;
-const kakaoMapUrl = process.env.NEXT_PUBLIC_KAKAO_MAP_URL;
-const lessonAddress = process.env.NEXT_PUBLIC_LESSON_ADDRESS;
-const consultationHours = process.env.NEXT_PUBLIC_CONSULTATION_HOURS;
 
 const faqs = [
   {
     question: "어떤 레슨을 선택해야 할지 모르겠어요.",
     answer:
-      "현재 구력과 가장 큰 고민을 알려주시면 정기 레슨과 개인 레슨 중 더 적합한 방식을 안내해 드립니다.",
+      "방문하시면 회원님의 상황과 수준에 맞춰 직접 상담해 드립니다. 현재 구력과 가장 큰 고민을 알려주시면 정기 레슨과 개인 레슨 중 더 적합한 방식을 안내해 드립니다.",
   },
   {
     question: "골프를 처음 시작해도 체험 레슨이 가능한가요?",
     answer:
-      "네, 가능합니다. 그립과 어드레스부터 현재 움직임을 확인하고 앞으로 익혀야 할 기초와 연습 방향을 안내합니다.",
+      "물론입니다. 처음이신 분도 쉽고 재미있게 체험하실 수 있도록 그립과 어드레스 같은 기초부터 차근차근 안내해 드립니다.",
   },
   {
     question: "상담할 때 무엇을 알려드리면 되나요?",
     answer:
-      "골프 구력, 평균 타수, 가장 큰 고민과 가능한 시간대를 알려주시면 더 빠르게 안내받을 수 있습니다.",
+      "원하시는 내용이나 지금의 고민을 편하게 남겨주시면 그에 맞게 안내해 드립니다. 구력과 평균 타수, 가능한 시간대를 함께 주시면 더 빠릅니다.",
   },
   {
     question: "레슨 일정은 어떻게 확정되나요?",
-    answer:
-      "상담을 통해 레슨 종류와 장소를 정한 뒤, 가능한 날짜와 시간을 확인해 최종 예약합니다.",
+    answer: `가능한 한 회원님이 원하시는 일정에 맞춰 시작합니다. 레슨 가능 요일은 ${site.lessonDays}입니다.`,
   },
   {
     question: "취소나 일정 변경도 가능한가요?",
     answer:
-      "레슨 종류별 취소·보강 기준을 예약 전에 안내합니다. 확정된 운영 정책은 각 레슨 페이지에서도 확인할 수 있습니다.",
+      "레슨 하루 전에 연락 주시면 일정을 조정해 드립니다. 자세한 기준은 정기 레슨 안내에서도 확인하실 수 있습니다.",
   },
 ] as const;
 
@@ -87,10 +80,6 @@ function SectionHeading({
 }
 
 export default function ContactPage() {
-  const cleanPhone = lessonPhone?.replace(/[^+\d]/g, "");
-  const phoneHref = cleanPhone ? `tel:${cleanPhone}` : undefined;
-  const smsHref = cleanPhone ? `sms:${cleanPhone}` : undefined;
-
   return (
     <div className="contact-page">
       <section className="contact-hero" aria-labelledby="contact-title">
@@ -101,7 +90,7 @@ export default function ContactPage() {
           >
             가장 편한 방법으로,
             <br />
-            레슨을 시작해 보세요.
+            레슨을 시작하세요.
           </h1>
           <p className="text-center">
             현재 고민과 가능한 시간대만 알려주세요.
@@ -132,9 +121,9 @@ export default function ContactPage() {
         />
 
         <div className="contact-method-grid">
-          {kakaoChannelUrl ? (
+          {links.kakaoChannel ? (
             <Link
-              href={kakaoChannelUrl}
+              href={links.kakaoChannel}
               className="contact-method-card contact-method-kakao"
               target="_blank"
               rel="noreferrer"
@@ -145,6 +134,7 @@ export default function ContactPage() {
               <div>
                 <span>KAKAO TALK</span>
                 <strong>카카오톡 1:1 채팅</strong>
+                <small>채널 검색 @{site.kakaoChannelId}</small>
               </div>
               <ArrowUpRight aria-hidden="true" />
             </Link>
@@ -158,67 +148,39 @@ export default function ContactPage() {
               </span>
               <div>
                 <span>KAKAO TALK</span>
-                <strong>채널 주소 입력 예정</strong>
+                <strong>카카오톡 1:1 채팅</strong>
+                <small>채널 검색 @{site.kakaoChannelId}</small>
               </div>
             </span>
           )}
 
-          {phoneHref ? (
-            <Link href={phoneHref} className="contact-method-card">
-              <span className="contact-method-icon">
-                <Phone aria-hidden="true" />
-              </span>
-              <div>
-                <span>PHONE CALL</span>
-                <strong>전화 걸기</strong>
-                <small>{lessonPhone}</small>
-              </div>
-              <ArrowUpRight aria-hidden="true" />
-            </Link>
-          ) : (
-            <span
-              className="contact-method-card is-disabled"
-              aria-disabled="true"
-            >
-              <span className="contact-method-icon">
-                <Phone aria-hidden="true" />
-              </span>
-              <div>
-                <span>PHONE CALL</span>
-                <strong>전화번호 입력 예정</strong>
-              </div>
+          <Link href={phoneHref} className="contact-method-card">
+            <span className="contact-method-icon">
+              <Phone aria-hidden="true" />
             </span>
-          )}
+            <div>
+              <span>PHONE CALL</span>
+              <strong>전화 걸기</strong>
+              <small>{site.phone}</small>
+            </div>
+            <ArrowUpRight aria-hidden="true" />
+          </Link>
 
-          {smsHref ? (
-            <Link href={smsHref} className="contact-method-card">
-              <span className="contact-method-icon">
-                <MessageSquareText aria-hidden="true" />
-              </span>
-              <div>
-                <span>MESSAGE</span>
-                <strong>문자 보내기</strong>
-              </div>
-              <ArrowUpRight aria-hidden="true" />
-            </Link>
-          ) : (
-            <span
-              className="contact-method-card is-disabled"
-              aria-disabled="true"
-            >
-              <span className="contact-method-icon">
-                <MessageSquareText aria-hidden="true" />
-              </span>
-              <div>
-                <span>MESSAGE</span>
-                <strong>전화번호 입력 예정</strong>
-              </div>
+          <Link href={smsHref} className="contact-method-card">
+            <span className="contact-method-icon">
+              <MessageSquareText aria-hidden="true" />
             </span>
-          )}
+            <div>
+              <span>MESSAGE</span>
+              <strong>문자 보내기</strong>
+              <small>{site.phone}</small>
+            </div>
+            <ArrowUpRight aria-hidden="true" />
+          </Link>
 
-          {instagramUrl ? (
+          {links.instagram ? (
             <Link
-              href={instagramUrl}
+              href={links.instagram}
               className="contact-method-card contact-method-instagram"
               target="_blank"
               rel="noreferrer"
@@ -228,7 +190,7 @@ export default function ContactPage() {
               </span>
               <div>
                 <span>INSTAGRAM</span>
-                <strong>인스타그램 보기</strong>
+                <strong>{site.instagramName}</strong>
               </div>
               <ArrowUpRight aria-hidden="true" />
             </Link>
@@ -242,7 +204,8 @@ export default function ContactPage() {
               </span>
               <div>
                 <span>INSTAGRAM</span>
-                <strong>계정 주소 입력 예정</strong>
+                <strong>{site.instagramName}</strong>
+                <small>계정 주소 준비 중</small>
               </div>
             </span>
           )}
@@ -254,7 +217,7 @@ export default function ContactPage() {
           index="02"
           eyebrow="YOUTUBE"
           title="영상으로 먼저 확인하는 레슨"
-          description="스윙 교정 팁과 실제 레슨 영상을 통해 수업 방식을 미리 확인해 보세요."
+          description="스윙 교정 팁과 실제 레슨 영상으로 수업 방식을 미리 살펴보실 수 있습니다."
         />
 
         <div className="youtube-preview-card">
@@ -272,15 +235,15 @@ export default function ContactPage() {
           <div className="youtube-preview-info">
             <div>
               <TvMinimalPlay aria-hidden="true" />
-              <span>YOUTUBE CHANNEL</span>
+              <span>YOUTUBE CHANNEL · {site.youtubeName}</span>
             </div>
             <h3>영상으로 배우는 골프 레슨</h3>
-            {youtubeUrl ? (
-              <Link href={youtubeUrl} target="_blank" rel="noreferrer">
+            {links.youtube ? (
+              <Link href={links.youtube} target="_blank" rel="noreferrer">
                 유튜브에서 보기 <ArrowRight aria-hidden="true" />
               </Link>
             ) : (
-              <span className="youtube-disabled-link">채널 주소 입력 예정</span>
+              <span className="youtube-disabled-link">채널 주소 준비 중</span>
             )}
           </div>
         </div>
@@ -308,31 +271,31 @@ export default function ContactPage() {
             <dt>
               <MapPin aria-hidden="true" /> 주소
             </dt>
-            <dd>{lessonAddress ?? "연습장 상세 주소 입력 예정"}</dd>
+            <dd>{site.address}</dd>
           </div>
           <div>
             <dt>
               <Clock3 aria-hidden="true" /> 상담 가능 시간
             </dt>
-            <dd>{consultationHours ?? "상담 가능 시간 입력 예정"}</dd>
+            <dd>{site.consultationHours}</dd>
           </div>
           <div>
             <dt>
               <CarFront aria-hidden="true" /> 주차
             </dt>
-            <dd>주차 안내 입력 예정</dd>
+            <dd>{site.parking}</dd>
           </div>
           <div>
             <dt>
               <BusFront aria-hidden="true" /> 대중교통
             </dt>
-            <dd>가까운 정류장·역 정보 입력 예정</dd>
+            <dd>가까운 정류장 · 역 정보 준비 중</dd>
           </div>
         </dl>
 
-        {kakaoMapUrl ? (
+        {links.kakaoMap ? (
           <Link
-            href={kakaoMapUrl}
+            href={links.kakaoMap}
             className="glass-button contact-map-button"
             target="_blank"
             rel="noreferrer"
@@ -347,7 +310,7 @@ export default function ContactPage() {
             aria-disabled="true"
           >
             <Navigation aria-hidden="true" />
-            카카오맵 주소 입력 예정
+            카카오맵 길찾기 준비 중
           </span>
         )}
       </Reveal>
@@ -381,10 +344,10 @@ export default function ContactPage() {
           index="05"
           eyebrow="QUICK INQUIRY"
           title="간단한 정보만 남겨주세요"
-          description="작성한 내용은 서버에 저장되지 않으며, 상담 메시지 형태로 정리해 카카오톡이나 문자로 보낼 수 있습니다."
+          description="작성한 내용은 서버에 저장되지 않으며, 상담 메시지 형태로 정리해 카카오톡이나 문자로 보내실 수 있습니다."
         />
 
-        <ContactForm kakaoUrl={kakaoChannelUrl} phone={lessonPhone} />
+        <ContactForm kakaoUrl={links.kakaoChannel} phone={site.phone} />
       </Reveal>
     </div>
   );

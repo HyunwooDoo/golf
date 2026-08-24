@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -8,12 +9,11 @@ import {
   House,
   MessageCircleMore,
   MessagesSquare,
-  Moon,
   Star,
-  Sun,
   UserRound,
 } from "lucide-react";
 import type { ReactNode } from "react";
+import { isExternal, kakaoChannelHref, site } from "@/lib/site";
 
 const navigation = [
   { href: "/", label: "소개", icon: House },
@@ -21,41 +21,6 @@ const navigation = [
   { href: "/private-lessons", label: "개인 레슨", icon: UserRound },
   { href: "/contact", label: "문의", icon: MessagesSquare },
 ] as const;
-
-const kakaoChannelUrl =
-  process.env.NEXT_PUBLIC_KAKAO_CHANNEL_URL ?? "/contact?channel=kakao";
-
-function ThemeToggle() {
-  const toggleTheme = () => {
-    const root = document.documentElement;
-    const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
-
-    root.dataset.theme = nextTheme;
-    root.style.colorScheme = nextTheme;
-    localStorage.setItem("golf-lesson-theme", nextTheme);
-
-    document
-      .querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')
-      .forEach((meta) =>
-        meta.setAttribute(
-          "content",
-          nextTheme === "dark" ? "#080808" : "#ffffff",
-        ),
-      );
-  };
-
-  return (
-    <button
-      type="button"
-      className="chrome-button theme-toggle"
-      onClick={toggleTheme}
-      aria-label="다크모드와 라이트모드 전환"
-    >
-      <Sun className="theme-icon theme-icon-sun" aria-hidden="true" />
-      <Moon className="theme-icon theme-icon-moon" aria-hidden="true" />
-    </button>
-  );
-}
 
 function isCurrentPath(pathname: string, href: string) {
   if (href === "/") return pathname === href;
@@ -66,6 +31,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const canGoBack = pathname !== "/";
+  const kakaoIsExternal = isExternal(kakaoChannelHref);
 
   return (
     <div className="site-shell">
@@ -84,13 +50,19 @@ export function AppShell({ children }: { children: ReactNode }) {
             ) : null}
           </div>
 
-          <Link href="/" className="brand" aria-label="골프 레슨 소개 홈">
-            <span className="brand-name">BRAND NAME</span>
+          <Link href="/" className="brand" aria-label={`${site.brand} 홈`}>
+            <Image
+              src="/brand/logo.png"
+              alt={site.brand}
+              width={609}
+              height={51}
+              className="brand-logo"
+              priority
+              unoptimized
+            />
           </Link>
 
-          <div className="top-bar-slot top-bar-slot-right">
-            <ThemeToggle />
-          </div>
+          <div className="top-bar-slot top-bar-slot-right" aria-hidden="true" />
         </div>
       </header>
 
@@ -102,10 +74,10 @@ export function AppShell({ children }: { children: ReactNode }) {
           <span>후기</span>
         </Link>
         <Link
-          href={kakaoChannelUrl}
+          href={kakaoChannelHref}
           className="quick-action kakao-action"
-          target={kakaoChannelUrl.startsWith("http") ? "_blank" : undefined}
-          rel={kakaoChannelUrl.startsWith("http") ? "noreferrer" : undefined}
+          target={kakaoIsExternal ? "_blank" : undefined}
+          rel={kakaoIsExternal ? "noreferrer" : undefined}
         >
           <MessageCircleMore aria-hidden="true" />
           <span>카톡 상담</span>

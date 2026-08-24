@@ -3,7 +3,6 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import {
   ArrowRight,
-  BarChart3,
   BusFront,
   CalendarDays,
   Camera,
@@ -15,9 +14,9 @@ import {
   Gauge,
   MapPin,
   MessageCircleMore,
-  MonitorDot,
   Navigation,
   Phone,
+  Radar,
   RefreshCcw,
   RotateCcw,
   Shirt,
@@ -26,35 +25,55 @@ import {
   Timer,
   Video,
 } from "lucide-react";
+import { LoopClip } from "@/components/loop-clip";
+import { PhotoFade } from "@/components/photo-fade";
 import { Reveal } from "@/components/reveal";
+import {
+  amenities,
+  analyzerPhotos,
+  bay1F,
+  bay2F,
+  facilityHighlights,
+  guideArea,
+  parkingArea,
+  restArea,
+  shortGameArea,
+} from "@/lib/photos";
+import {
+  isExternal,
+  kakaoChannelHref,
+  links,
+  phoneHref,
+  site,
+} from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "문화골프연습장 정기 레슨",
-  description: "꾸준한 반복과 데이터 분석으로 기본을 완성하는 정기 골프 레슨",
+  title: "정기 레슨",
+  description:
+    "문화골프연습장에서 꾸준한 반복과 데이터 분석으로 기본을 완성하는 정기 골프 레슨.",
 };
-
-const kakaoChannelUrl =
-  process.env.NEXT_PUBLIC_KAKAO_CHANNEL_URL ?? "/contact?channel=kakao";
-const kakaoMapUrl = process.env.NEXT_PUBLIC_KAKAO_MAP_URL;
-const lessonPhone = process.env.NEXT_PUBLIC_LESSON_PHONE;
 
 const targets = [
   "골프를 처음 시작해 기초를 제대로 배우고 싶은 분",
-  "연습할 때마다 스윙이 달라져 기준이 필요한 분",
+  "핸디캡을 최소 9타 줄이고 싶은 분",
   "꾸준한 레슨과 연습 루틴을 만들고 싶은 분",
-  "영상과 장비로 변화를 직접 확인하고 싶은 분",
+  "영상과 데이터로 변화를 직접 확인하고 싶은 분",
+  "라이프 베스트 스코어를 경신하고 싶은 분",
+  "100타를 확실하게 깨고 싶은 분",
+  "싱글 스코어에 도전하고 싶은 분",
 ] as const;
 
 const lessonProcess = [
   {
     number: "01",
     title: "현재 상태 확인",
-    description: "목표와 고민을 듣고 현재 스윙을 영상으로 촬영합니다.",
+    description: "목표와 고민을 먼저 듣고, 지금의 스윙을 영상으로 촬영합니다.",
   },
   {
     number: "02",
     title: "데이터 진단",
-    description: "분석 장비와 영상을 함께 보며 핵심 원인을 찾습니다.",
+    description:
+      "런치 모니터 수치와 영상을 함께 보며 문제의 원인을 찾아냅니다.",
   },
   {
     number: "03",
@@ -69,7 +88,8 @@ const lessonProcess = [
   {
     number: "05",
     title: "변화 확인과 과제",
-    description: "다시 촬영해 변화를 확인하고 다음 레슨 전 목표를 정합니다.",
+    description:
+      "다시 촬영해 변화를 확인하고, 다음 레슨 전까지의 목표를 정합니다.",
   },
 ] as const;
 
@@ -106,14 +126,14 @@ function KakaoLink({
   children: ReactNode;
   className: string;
 }) {
-  const isExternal = kakaoChannelUrl.startsWith("http");
+  const external = isExternal(kakaoChannelHref);
 
   return (
     <Link
-      href={kakaoChannelUrl}
+      href={kakaoChannelHref}
       className={className}
-      target={isExternal ? "_blank" : undefined}
-      rel={isExternal ? "noreferrer" : undefined}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noreferrer" : undefined}
     >
       {children}
     </Link>
@@ -121,10 +141,6 @@ function KakaoLink({
 }
 
 export default function RegularLessonsPage() {
-  const phoneHref = lessonPhone
-    ? `tel:${lessonPhone.replace(/[^+\d]/g, "")}`
-    : null;
-
   return (
     <div className="regular-page">
       <section className="regular-hero" aria-labelledby="regular-title">
@@ -140,22 +156,17 @@ export default function RegularLessonsPage() {
             기본을 만듭니다.
           </h1>
           <p className="text-center">
-            문화골프연습장에서 일정한 주기로 배우고 반복하며, 매 레슨의 변화를
-            영상과 데이터로 확인하는
-            <br />
-            정기 프로그램입니다.
+            {site.place}에서 일정한 주기로 배우고 반복하며,
+            <br />매 레슨의 변화를 영상과 데이터로 확인하는 정기 프로그램입니다.
           </p>
         </Reveal>
 
         <Reveal className="regular-hero-media" delay={0.08}>
-          <div
-            className="media-placeholder"
-            role="img"
-            aria-label="문화골프연습장 전경 사진 자리"
-          >
-            <span>문화골프연습장 전경 사진</span>
-            <small>FACILITY VIEW</small>
-          </div>
+          <PhotoFade
+            images={facilityHighlights}
+            className="regular-hero-photo"
+            priority
+          />
           <div className="regular-hero-badge">
             <span>REGULAR</span>
             <strong>꾸준하게</strong>
@@ -180,46 +191,91 @@ export default function RegularLessonsPage() {
           index="01"
           eyebrow="SPACE & FACILITY"
           title="연습에 집중할 수 있는 공간"
-          description="실제 시설 사진이 준비되면 타석 간격과 연습 환경을 한눈에 확인할 수 있도록 교체됩니다."
+          description="1층과 2층 타석부터 퍼팅 · 벙커 연습장, 휴게 공간과 편의 시설까지. 실제 연습 환경을 사진 그대로 보여드립니다."
         />
 
         <div className="facility-gallery">
-          <div
-            className="media-placeholder facility-main-photo"
-            role="img"
-            aria-label="타석 환경 사진 자리"
-          >
-            <span>타석 환경 사진</span>
-            <small>HITTING BAY</small>
-          </div>
-          <div
-            className="media-placeholder"
-            role="img"
-            aria-label="연습장 시설 사진 자리"
-          >
-            <span>연습장 시설 사진</span>
-            <small>FACILITY</small>
-          </div>
-          <div
-            className="media-placeholder"
-            role="img"
-            aria-label="대기 및 휴게 공간 사진 자리"
-          >
-            <span>대기·휴게 공간 사진</span>
-            <small>LOUNGE</small>
-          </div>
+          <PhotoFade
+            images={bay1F}
+            className="facility-photo-wide"
+            overlay={
+              <>
+                <span className="photo-eyebrow">HITTING BAY · 1F</span>
+                <span className="photo-label">1층 타석</span>
+              </>
+            }
+          />
+          <PhotoFade
+            images={bay2F}
+            className="facility-photo-wide"
+            interval={5200}
+            overlay={
+              <>
+                <span className="photo-eyebrow">HITTING BAY · 2F</span>
+                <span className="photo-label">2층 타석</span>
+              </>
+            }
+          />
+          <PhotoFade
+            images={shortGameArea}
+            className="facility-photo-half"
+            interval={4900}
+            sizes="(min-width: 721px) 350px, 48vw"
+            overlay={
+              <>
+                <span className="photo-eyebrow">SHORT GAME</span>
+                <span className="photo-label">퍼팅 · 벙커 연습장</span>
+              </>
+            }
+          />
+          <PhotoFade
+            images={restArea}
+            className="facility-photo-half"
+            interval={5400}
+            sizes="(min-width: 721px) 350px, 48vw"
+            overlay={
+              <>
+                <span className="photo-eyebrow">LOUNGE</span>
+                <span className="photo-label">실내외 휴게 공간</span>
+              </>
+            }
+          />
+          <PhotoFade
+            images={amenities}
+            className="facility-photo-half"
+            interval={5100}
+            sizes="(min-width: 721px) 350px, 48vw"
+            overlay={
+              <>
+                <span className="photo-eyebrow">AMENITY</span>
+                <span className="photo-label">락커 · 커피 · 정수기</span>
+              </>
+            }
+          />
+          <PhotoFade
+            images={guideArea}
+            className="facility-photo-half"
+            interval={5600}
+            sizes="(min-width: 721px) 350px, 48vw"
+            overlay={
+              <>
+                <span className="photo-eyebrow">GUIDE</span>
+                <span className="photo-label">타석 안내 · 층별 이동</span>
+              </>
+            }
+          />
         </div>
 
         <div className="facility-features">
           <div>
             <Gauge aria-hidden="true" />
             <span>타석 환경</span>
-            <strong>상세 정보 입력 예정</strong>
+            <strong>1층 · 2층 타석 운영</strong>
           </div>
           <div>
             <CircleParking aria-hidden="true" />
             <span>편의 시설</span>
-            <strong>상세 정보 입력 예정</strong>
+            <strong>락커 · 휴게 공간 · 커피</strong>
           </div>
         </div>
       </Reveal>
@@ -229,34 +285,38 @@ export default function RegularLessonsPage() {
           index="02"
           eyebrow="ANALYSIS SYSTEM"
           title="보이지 않던 문제를 장비로 확인합니다"
-          description="감각에만 의존하지 않고 촬영 영상과 측정 결과를 함께 비교해 교정 방향을 더 명확하게 설명합니다."
+          description="감각에만 의존하지 않습니다. 촬영 영상과 측정 결과를 함께 비교해 교정 방향을 분명하게 설명합니다."
         />
 
         <div className="system-layout">
-          <div
-            className="media-placeholder system-photo"
-            role="img"
-            aria-label="스윙 분석 장비 사진 자리"
-          >
-            <MonitorDot aria-hidden="true" />
-            <span>스윙 분석 장비 사진</span>
-            <small>장비명 입력 예정</small>
-          </div>
+          <PhotoFade
+            images={analyzerPhotos}
+            className="system-photo-frame"
+            fit="contain"
+            interval={5600}
+            sizes="(min-width: 721px) 380px, 92vw"
+          />
           <div className="system-feature-list">
             <article>
               <Video aria-hidden="true" />
               <div>
                 <span>01</span>
                 <h3>스윙 영상 촬영</h3>
-                <p>육안으로 놓치기 쉬운 움직임을 구간별로 확인합니다.</p>
+                <p>
+                  정면과 측면 2대의 카메라로 촬영해, 육안으로 놓치기 쉬운
+                  움직임을 구간별로 확인합니다.
+                </p>
               </div>
             </article>
             <article>
-              <BarChart3 aria-hidden="true" />
+              <Radar aria-hidden="true" />
               <div>
                 <span>02</span>
                 <h3>측정 데이터 분석</h3>
-                <p>사용 장비명과 제공되는 측정 항목이 이곳에 표시됩니다.</p>
+                <p>
+                  4개의 초고속 카메라가 임팩트를 실측해, 구질이 결정되는 원인을
+                  숫자로 보여줍니다.
+                </p>
               </div>
             </article>
             <article>
@@ -270,6 +330,27 @@ export default function RegularLessonsPage() {
               </div>
             </article>
           </div>
+        </div>
+
+        <LoopClip
+          name="lesson-analysis"
+          label="GC QUAD 분석 화면에서 스윙을 비교하는 모습"
+          className="analysis-clip"
+          overlay={
+            <>
+              <span className="photo-eyebrow">ANALYSIS SCREEN</span>
+              <span className="photo-label">실제 분석 화면</span>
+            </>
+          }
+        />
+
+        <div className="inline-highlight">
+          <Radar aria-hidden="true" />
+          <p>
+            <strong>공의 궤적은 임팩트의 순간에 이미 결정됩니다</strong>
+            {site.analyzerNote} {site.analyzer}가 4개의 초고속 카메라로 임팩트를
+            실측합니다. 감각이 아닌 데이터로 원인을 짚고, 해결 순서를 정합니다.
+          </p>
         </div>
       </Reveal>
 
@@ -294,14 +375,14 @@ export default function RegularLessonsPage() {
           <div>
             <Timer aria-hidden="true" />
             <span>레슨 시간</span>
-            <strong>회당 —분</strong>
-            <small>실제 시간 입력</small>
+            <strong>회당 20분</strong>
+            <small>집중도 높은 짧은 주기</small>
           </div>
           <div>
             <RefreshCcw aria-hidden="true" />
             <span>주당 횟수</span>
-            <strong>주 —회</strong>
-            <small>실제 횟수 입력</small>
+            <strong>주 3~4회</strong>
+            <small>반복으로 동작 정착</small>
           </div>
         </div>
 
@@ -315,12 +396,16 @@ export default function RegularLessonsPage() {
           </div>
           <dl>
             <div>
-              <dt>운영 요일</dt>
-              <dd>가능 요일 입력 예정</dd>
+              <dt>연습장 운영</dt>
+              <dd>{site.facilityHours}</dd>
             </div>
             <div>
-              <dt>가능 시간</dt>
-              <dd>가능 시간대 입력 예정</dd>
+              <dt>레슨 가능 요일</dt>
+              <dd>{site.lessonDays}</dd>
+            </div>
+            <div>
+              <dt>상담 가능 시간</dt>
+              <dd>{site.consultationHours}</dd>
             </div>
             <div>
               <dt>일정 확정</dt>
@@ -335,7 +420,7 @@ export default function RegularLessonsPage() {
           index="04"
           eyebrow="PACKAGE"
           title="연습 목표에 맞는 정기 패키지"
-          description="아래 가격과 횟수 영역은 실제 운영안이 확정되면 바로 교체할 수 있습니다."
+          description="레슨비와 타석비 포함 여부는 상담 시 정확한 금액으로 안내해 드립니다."
         />
 
         <div className="regular-package-list">
@@ -350,16 +435,16 @@ export default function RegularLessonsPage() {
             </div>
             <dl>
               <div>
-                <dt>레슨 횟수</dt>
-                <dd>입력 예정</dd>
+                <dt>레슨 주기</dt>
+                <dd>주 3~4회 · 회당 20분</dd>
               </div>
               <div>
                 <dt>레슨비</dt>
-                <dd>가격 입력 예정</dd>
+                <dd>상담 시 안내</dd>
               </div>
               <div>
                 <dt>타석비</dt>
-                <dd>포함 여부 입력</dd>
+                <dd>상담 시 안내</dd>
               </div>
             </dl>
             <KakaoLink className="glass-button package-button">
@@ -378,16 +463,16 @@ export default function RegularLessonsPage() {
             </div>
             <dl>
               <div>
-                <dt>레슨 횟수</dt>
-                <dd>입력 예정</dd>
+                <dt>레슨 주기</dt>
+                <dd>주 3~4회 · 회당 20분</dd>
               </div>
               <div>
                 <dt>레슨비</dt>
-                <dd>가격 입력 예정</dd>
+                <dd>상담 시 안내</dd>
               </div>
               <div>
                 <dt>타석비</dt>
-                <dd>포함 여부 입력</dd>
+                <dd>상담 시 안내</dd>
               </div>
             </dl>
             <KakaoLink className="glass-button glass-button-light package-button">
@@ -427,21 +512,21 @@ export default function RegularLessonsPage() {
         <div className="policy-grid">
           <article>
             <RotateCcw aria-hidden="true" />
-            <span>취소 정책</span>
-            <h3>기준 입력 예정</h3>
-            <p>취소 가능 시점과 당일 취소 기준이 표시됩니다.</p>
+            <span>일정 변경</span>
+            <h3>하루 전까지</h3>
+            <p>레슨 하루 전에 연락 주시면 일정을 조정해 드립니다.</p>
           </article>
           <article>
             <RefreshCcw aria-hidden="true" />
-            <span>보강 정책</span>
-            <h3>기준 입력 예정</h3>
-            <p>보강 가능 횟수와 신청 방법이 표시됩니다.</p>
+            <span>보강</span>
+            <h3>상담 시 안내</h3>
+            <p>보강 가능 횟수와 신청 방법을 예약 전에 알려드립니다.</p>
           </article>
           <article>
             <CalendarDays aria-hidden="true" />
-            <span>이월 정책</span>
-            <h3>기준 입력 예정</h3>
-            <p>미사용 레슨의 이월 가능 기간이 표시됩니다.</p>
+            <span>이월</span>
+            <h3>상담 시 안내</h3>
+            <p>미사용 레슨의 이월 기준을 함께 확인해 드립니다.</p>
           </article>
         </div>
 
@@ -471,8 +556,8 @@ export default function RegularLessonsPage() {
             <li>
               <Sparkles aria-hidden="true" />
               <div>
-                <strong>개인 클럽·장갑</strong>
-                <span>보유한 경우 준비, 미보유 시 사전 문의</span>
+                <strong>개인 클럽 · 장갑</strong>
+                <span>없어도 괜찮습니다. 상담 시 안내해 드립니다</span>
               </div>
             </li>
           </ul>
@@ -483,7 +568,7 @@ export default function RegularLessonsPage() {
         <SectionHeading
           index="07"
           eyebrow="LOCATION"
-          title="문화골프연습장 오시는 길"
+          title={`${site.place} 오시는 길`}
         />
 
         <div
@@ -493,45 +578,56 @@ export default function RegularLessonsPage() {
         >
           <MapPin aria-hidden="true" />
           <span>카카오맵 지도 영역</span>
-          <small>주소 입력 후 지도 연결</small>
+          <small>LOCATION MAP</small>
         </div>
+
+        <PhotoFade
+          images={parkingArea}
+          className="facility-photo-wide location-photo"
+          overlay={
+            <>
+              <span className="photo-eyebrow">PARKING</span>
+              <span className="photo-label">연습장 앞 주차장</span>
+            </>
+          }
+        />
 
         <dl className="location-details">
           <div>
             <dt>
               <MapPin aria-hidden="true" /> 주소
             </dt>
-            <dd>연습장 상세 주소 입력 예정</dd>
+            <dd>{site.address}</dd>
           </div>
           <div>
             <dt>
               <Clock3 aria-hidden="true" /> 운영시간
             </dt>
-            <dd>운영시간 입력 예정</dd>
+            <dd>{site.facilityHours}</dd>
           </div>
           <div>
             <dt>
               <CarFront aria-hidden="true" /> 주차
             </dt>
-            <dd>주차 가능 여부와 이용 안내 입력 예정</dd>
+            <dd>{site.parking}</dd>
           </div>
           <div>
             <dt>
               <BusFront aria-hidden="true" /> 대중교통
             </dt>
-            <dd>가까운 정류장 또는 역 정보 입력 예정</dd>
+            <dd>가까운 정류장 · 역 정보 준비 중</dd>
           </div>
           <div>
             <dt>
               <Phone aria-hidden="true" /> 전화번호
             </dt>
-            <dd>{lessonPhone ?? "전화번호 입력 예정"}</dd>
+            <dd>{site.phone}</dd>
           </div>
         </dl>
 
-        {kakaoMapUrl ? (
+        {links.kakaoMap ? (
           <Link
-            href={kakaoMapUrl}
+            href={links.kakaoMap}
             className="glass-button map-button"
             target="_blank"
             rel="noreferrer"
@@ -546,7 +642,7 @@ export default function RegularLessonsPage() {
             aria-disabled="true"
           >
             <Navigation aria-hidden="true" />
-            카카오맵 주소 연결 예정
+            카카오맵 길찾기 준비 중
           </span>
         )}
       </Reveal>
@@ -561,26 +657,17 @@ export default function RegularLessonsPage() {
         <h2>
           한 번의 체험으로,
           <br />
-          내게 맞는 연습 방향을 찾아보세요.
+          내게 맞는 연습 방향을 찾으세요.
         </h2>
         <span className="regular-final-description">
-          전화 또는 카카오톡으로 현재 고민과 가능한 시간대를 남겨주세요.
+          전화나 카카오톡으로 현재 고민과 가능한 시간대를 남겨주세요. 확인 후
+          바로 안내해 드립니다.
         </span>
         <div className="regular-final-actions">
-          {phoneHref ? (
-            <Link href={phoneHref} className="glass-button glass-button-call">
-              <Phone aria-hidden="true" />
-              전화로 신청하기
-            </Link>
-          ) : (
-            <span
-              className="glass-button glass-button-call is-disabled"
-              aria-disabled="true"
-            >
-              <Phone aria-hidden="true" />
-              전화번호 입력 예정
-            </span>
-          )}
+          <Link href={phoneHref} className="glass-button glass-button-call">
+            <Phone aria-hidden="true" />
+            {site.phone}
+          </Link>
           <KakaoLink className="glass-button glass-button-kakao">
             <MessageCircleMore aria-hidden="true" />
             카톡으로 신청하기

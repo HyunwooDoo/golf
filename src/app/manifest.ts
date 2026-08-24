@@ -3,15 +3,16 @@ import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "Golf Lesson",
-    short_name: "Golf Lesson",
-    description: "기초부터 정확하게 배우는 데이터 기반 골프 레슨",
+    name: "두윤곤 골프 레슨",
+    short_name: "두윤곤 골프",
+    description:
+      "GC QUAD 런치 모니터와 영상 분석으로 원인을 진단하고, 반복 레슨으로 변화를 완성하는 골프 레슨.",
     start_url: "/",
     scope: "/",
     display: "standalone",
     orientation: "portrait",
-    background_color: "#f4f1e9",
-    theme_color: "#f4f1e9",
+    background_color: "#ffffff",
+    theme_color: "#ffffff",
     lang: "ko-KR",
     icons: [
       {

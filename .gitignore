@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 원본 사진 (public/photos 의 최적화본만 배포합니다)
+/assets/original-photos
+
+# 원본 영상 (public/clips 의 압축본만 배포합니다)
+/assets/original-videos
