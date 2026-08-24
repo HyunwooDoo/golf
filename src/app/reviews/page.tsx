@@ -26,13 +26,16 @@ import {
   Video,
 } from "lucide-react";
 import { Reveal } from "@/components/reveal";
+import { createPageMetadata } from "@/lib/seo";
 import { links, site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "후기",
+export const metadata: Metadata = createPageMetadata({
+  title: "두윤곤 프로 골프 레슨 후기",
   description:
-    "레슨 과정과 전후 변화, 외부 리뷰와 운영 정보를 함께 공개하는 골프 레슨 후기.",
-};
+    "두윤곤 프로 골프 레슨의 수업 과정과 스윙 전후 변화, 실제 회원 후기와 외부 리뷰를 확인해 보세요.",
+  path: "/reviews",
+  keywords: ["두윤곤 프로 레슨 후기", "도봉구 골프 레슨 후기"],
+});
 
 const lessonFlow = [
   {

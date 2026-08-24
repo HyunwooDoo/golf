@@ -22,13 +22,16 @@ import {
 } from "lucide-react";
 import { LoopClip } from "@/components/loop-clip";
 import { Reveal } from "@/components/reveal";
+import { createPageMetadata } from "@/lib/seo";
 import { isExternal, kakaoChannelHref, phoneHref, site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "개인 레슨",
+export const metadata: Metadata = createPageMetadata({
+  title: "도봉구 1:1 개인 골프 레슨",
   description:
-    "목표와 문제 한 가지에 수업 전체를 집중하는 1:1 맞춤 개인 골프 레슨 프로그램.",
-};
+    "서울 도봉구에서 스윙 교정, 숏게임, 퍼팅, 필드 레슨 등 목표와 핵심 문제에 집중하는 두윤곤 프로의 1:1 맞춤 골프 레슨입니다.",
+  path: "/private-lessons",
+  keywords: ["도봉구 개인 골프 레슨", "1대1 골프 레슨", "골프 스윙 교정"],
+});
 
 const lessonPrograms = [
   {

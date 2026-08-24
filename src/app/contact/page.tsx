@@ -20,13 +20,16 @@ import { ContactForm } from "@/components/contact-form";
 import { KakaoMap } from "@/components/kakao-map";
 import { Reveal } from "@/components/reveal";
 import { YoutubeEmbed } from "@/components/youtube-embed";
+import { createPageMetadata } from "@/lib/seo";
 import { links, phoneHref, site, smsHref } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "문의",
+export const metadata: Metadata = createPageMetadata({
+  title: "도봉구 골프 레슨 상담·위치",
   description:
-    "카카오톡 · 전화 · 문자로 편하게 상담하는 두윤곤 프로 골프 레슨 문의 페이지.",
-};
+    "서울 도봉구 문화골프연습장 두윤곤 프로 골프 레슨의 위치, 운영 안내와 카카오톡·전화·문자 상담 방법을 확인하세요.",
+  path: "/contact",
+  keywords: ["도봉구 골프 레슨 상담", "문화골프연습장 위치"],
+});
 
 const faqs = [
   {
