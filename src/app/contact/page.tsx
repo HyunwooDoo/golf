@@ -139,7 +139,7 @@ export default function ContactPage() {
               <div>
                 <span>KAKAO TALK</span>
                 <strong>카카오톡 1:1 채팅</strong>
-                <small>채널 검색 @{site.kakaoChannelId}</small>
+                <small>오픈채팅으로 바로 상담</small>
               </div>
               <ArrowUpRight aria-hidden="true" />
             </Link>
@@ -154,7 +154,7 @@ export default function ContactPage() {
               <div>
                 <span>KAKAO TALK</span>
                 <strong>카카오톡 1:1 채팅</strong>
-                <small>채널 검색 @{site.kakaoChannelId}</small>
+                <small>오픈채팅으로 바로 상담</small>
               </div>
             </span>
           )}

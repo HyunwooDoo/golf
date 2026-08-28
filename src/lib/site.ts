@@ -26,7 +26,6 @@ export const site = {
   proRole: "문화골프연습장 헤드 프로",
   place: "문화골프연습장",
   phone: env.phone ?? "010-7434-4208",
-  kakaoChannelId: "dyk3102",
   instagramName: "두윤곤 프로",
   instagramHandle: "yunkondo",
   youtubeName: "두윤곤프로",
@@ -42,7 +41,7 @@ export const site = {
 } as const;
 
 export const links = {
-  kakaoChannel: env.kakaoChannelUrl,
+  kakaoChannel: env.kakaoChannelUrl ?? "https://open.kakao.com/o/sah7xHKi",
   kakaoMap:
     env.kakaoMapUrl ??
     `https://map.kakao.com/link/search/${encodeURIComponent("문화골프연습장 도봉구")}`,
@@ -52,8 +51,7 @@ export const links = {
   googleReview: env.googleReviewUrl,
 } as const;
 
-/** 카카오 채널 주소가 없으면 문의 페이지로 보냅니다. */
-export const kakaoChannelHref = links.kakaoChannel ?? "/contact?channel=kakao";
+export const kakaoChannelHref = links.kakaoChannel;
 
 const digits = site.phone.replace(/[^+\d]/g, "");
 
