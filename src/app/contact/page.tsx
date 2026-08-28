@@ -159,7 +159,10 @@ export default function ContactPage() {
             </span>
           )}
 
-          <a href={phoneHref} className="contact-method-card">
+          <a
+            href={phoneHref}
+            className="contact-method-card contact-method-phone"
+          >
             <span className="contact-method-icon">
               <Phone aria-hidden="true" />
             </span>
@@ -171,7 +174,7 @@ export default function ContactPage() {
             <ArrowUpRight aria-hidden="true" />
           </a>
 
-          <a href={smsHref} className="contact-method-card">
+          <a href={smsHref} className="contact-method-card contact-method-sms">
             <span className="contact-method-icon">
               <MessageSquareText aria-hidden="true" />
             </span>
