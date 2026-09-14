@@ -62,14 +62,14 @@ export const isExternal = (href: string) => href.startsWith("http");
 
 export const profile = {
   certifications: [
-    "USGA 미국골프협회 티칭 프로",
-    "KSPGA 세미프로",
+    "USGA 미국골프협회 교습과정 수료",
+    "KSPGA 투어 세미 프로",
     "대한스포츠프로골프협회 회원",
     "TPI Mechanics Level 2",
   ],
   career: [
     "현 문화골프연습장 헤드 프로",
-    "전 수락산 행복골프훈련소 헤드 프로",
+    "현 수락산 행복골프훈련소 헤드 프로",
     "전 이민영 골프 아카데미 헤드 프로",
     "전 팀 타이틀리스트 레슨 팀장",
   ],

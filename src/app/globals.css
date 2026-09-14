@@ -1643,9 +1643,30 @@ button {
 
 .regular-package-card h3 {
   margin: 0;
-  font-size: clamp(2rem, 8.5vw, 3rem);
-  line-height: 1.08;
-  letter-spacing: -0.06em;
+  font-size: clamp(1.4rem, 5.5vw, 1.7rem);
+  line-height: 1.35;
+  letter-spacing: -0.045em;
+  word-break: keep-all;
+}
+
+.regular-package-card {
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+.regular-package-card dt {
+  flex-shrink: 0;
+}
+
+.regular-package-card dd {
+  text-align: right;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.regular-package-card dl > div:first-child dd {
+  font-size: 1.35rem;
+  letter-spacing: -0.04em;
 }
 
 .regular-package-card dl {
@@ -5000,6 +5021,10 @@ button {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .regular-package-list > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
   .regular-final-actions {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -5118,4 +5143,122 @@ button {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Program pricing: keep sessions, total payment and value visible together. */
+.regular-package-card .package-intro p {
+  margin: 0.65rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+.package-session-count {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 1rem 0;
+  border-block: 1px solid currentColor;
+}
+.package-session-count > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.package-session-count strong {
+  font-size: 1.9rem;
+  line-height: 1.2;
+}
+.package-session-count span {
+  font-size: 0.65rem;
+}
+.package-price-block > span {
+  font-size: 0.75rem;
+}
+.package-price-block p {
+  margin: 0.25rem 0;
+  font-size: 1rem;
+}
+.package-price-block strong {
+  font-size: clamp(2rem, 8vw, 2.6rem);
+  letter-spacing: -0.06em;
+}
+.package-value,
+.package-bonus {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: rgba(145, 105, 27, 0.1);
+}
+.package-value strong {
+  font-size: 0.94rem;
+}
+.package-value small,
+.package-bonus small {
+  font-size: 0.7rem;
+  line-height: 1.6;
+}
+.regular-package-featured .package-value {
+  background: rgba(255, 255, 255, 0.14);
+}
+.package-bonus {
+  background: #fff2cc;
+  color: #624508;
+  border: 1px solid #dec78e;
+}
+.package-bonus > span {
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+.package-bonus strong {
+  font-size: 1.15rem;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+.regular-package-card dl > div:first-child dd {
+  font-size: 0.75rem;
+  letter-spacing: normal;
+}
+.coupon-offer {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 1.7rem;
+  background: var(--surface);
+}
+.coupon-offer h3 {
+  font-size: 1.5rem;
+  margin: 0.6rem 0;
+  word-break: keep-all;
+}
+.coupon-offer p {
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.coupon-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.coupon-options > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.coupon-options h4 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+.coupon-options strong {
+  font-size: 1.45rem;
+  letter-spacing: -0.05em;
+}
+.coupon-options span,
+.coupon-options b {
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+.coupon-options b {
+  color: var(--primary);
 }

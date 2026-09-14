@@ -31,7 +31,7 @@ export const siteUrl = parsedSiteUrl.origin;
 
 export const siteName = "두윤곤 프로 레슨";
 export const siteDescription =
-  "서울 도봉구 문화골프연습장에서 진행하는 두윤곤 프로 골프 레슨. GC QUAD와 정면·측면 영상 분석으로 초보 기초, 스윙 교정, 정기·개인 레슨을 안내합니다.";
+  "두윤곤 프로의 도봉구 문화골프연습장 골프 레슨. GC QUAD 스윙 분석, 초보 기초부터 정기·개인 레슨까지 안내합니다.";
 
 export const seoKeywords = [
   "두윤곤 프로",

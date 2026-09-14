@@ -29,6 +29,7 @@ import { LoopClip } from "@/components/loop-clip";
 import { KakaoMap } from "@/components/kakao-map";
 import { PhotoFade } from "@/components/photo-fade";
 import { Reveal } from "@/components/reveal";
+import { cn } from "@/lib/utils";
 import { createPageMetadata } from "@/lib/seo";
 import {
   amenities,
@@ -56,6 +57,54 @@ export const metadata: Metadata = createPageMetadata({
   path: "/regular-lessons",
   keywords: ["도봉구 정기 골프 레슨", "문화골프연습장 정기 레슨"],
 });
+
+const regularPrograms = [
+  {
+    label: "가볍게 시작",
+    duration: "1개월",
+    title: "정기 레슨권",
+    description: "연습장 이용권이 있다면, 레슨만 시작하세요.",
+    price: "250,000",
+    monthly: "250,000",
+    memberPrice: "230,000원",
+    count: "14회",
+    inclusion: "레슨 전용 · 연습장 이용료 별도",
+    benefit: "한 달 동안 기초부터 점검",
+    comparison: "월 14회 × 20분으로 반복하는 정기 레슨",
+    extra: "",
+    featured: false,
+  },
+  {
+    label: "처음 시작한다면 추천",
+    duration: "3개월",
+    title: "연습 + 레슨 패키지",
+    description: "배운 동작을 바로 연습하며 기초를 쌓으세요.",
+    price: "1,080,000",
+    monthly: "360,000",
+    memberPrice: "990,000원",
+    count: "42회",
+    inclusion: "3개월 연습장 이용 + 정기 레슨",
+    benefit: "따로 등록할 때보다 6만원 절약",
+    comparison: "연습장 45만원 + 레슨 69만원 = 114만원 대비",
+    extra: "",
+    featured: true,
+  },
+  {
+    label: "장기 등록 혜택",
+    duration: "6개월",
+    title: "연습 + 레슨 패키지",
+    description: "월 부담은 줄이고, 필드까지 이어가세요.",
+    price: "1,890,000",
+    monthly: "315,000",
+    memberPrice: "1,700,000원",
+    count: "84회",
+    inclusion: "6개월 연습장 이용 + 정기 레슨",
+    benefit: "따로 등록할 때보다 15만원 절약",
+    comparison: "연습장 78만원 + 레슨 126만원 = 204만원 대비",
+    extra: "20만원 상당 필드 레슨 이용권 + 락커 무료 이용권",
+    featured: false,
+  },
+] as const;
 
 const targets = [
   "골프를 처음 시작해 기초를 제대로 배우고 싶은 분",
@@ -437,65 +486,141 @@ export default function RegularLessonsPage() {
               정기 패키지
             </>
           }
-          description="레슨비와 타석비 포함 여부는 상담 시 정확한 금액으로 안내해 드립니다."
+          description="문화골프연습장 현금가 기준입니다. 처음 시작하는 1개월 레슨과 연습장 이용이 포함된 3·6개월 패키지를 안내합니다."
         />
 
         <div className="regular-package-list">
-          <article className="regular-package-card">
-            <div className="package-card-topline">
-              <span>STARTER</span>
-              <span>01 MONTH</span>
+          {regularPrograms.map((program) => (
+            <article
+              key={program.title}
+              className={cn(
+                "regular-package-card",
+                program.featured && "regular-package-featured",
+              )}
+            >
+              <div className="package-card-topline">
+                <span>{program.label}</span>
+                <span>{program.duration}</span>
+              </div>
+              <div className="package-intro">
+                <h3>
+                  {program.duration}
+                  <br />
+                  {program.title}
+                </h3>
+                <p>{program.description}</p>
+              </div>
+              <div className="package-session-count">
+                <div>
+                  <strong>{program.count}</strong>
+                  <span>기간 내 레슨 · 월 14회 기준</span>
+                </div>
+                <div>
+                  <strong>20분</strong>
+                  <span>회당 레슨 시간</span>
+                </div>
+              </div>
+              <div className="package-price-block">
+                <span>정상가 · {program.duration} 총액</span>
+                <p>
+                  <strong>{program.price}</strong>원
+                </p>
+                <span>
+                  월 환산 <b>{program.monthly}원</b>
+                </span>
+              </div>
+              <div className="package-value">
+                <strong>{program.benefit}</strong>
+                <small>{program.comparison}</small>
+              </div>
+              {program.extra ? (
+                <div className="package-bonus">
+                  <span>6개월 이상 등록 혜택</span>
+                  <strong>{program.extra}</strong>
+                  <small>
+                    이용권 적용 범위와 사용 조건은 등록 시 안내합니다.
+                  </small>
+                </div>
+              ) : null}
+              <dl>
+                <div>
+                  <dt>포함 항목</dt>
+                  <dd>{program.inclusion}</dd>
+                </div>
+                <div>
+                  <dt>기존 회원 총액</dt>
+                  <dd>{program.memberPrice}</dd>
+                </div>
+                <div>
+                  <dt>레슨 요일</dt>
+                  <dd>월 · 수 · 금 · 토</dd>
+                </div>
+              </dl>
+              <KakaoLink
+                className={cn(
+                  "glass-button",
+                  "package-button",
+                  program.featured && "glass-button-light",
+                )}
+              >
+                {program.duration} 과정 문의 <ArrowRight aria-hidden="true" />
+              </KakaoLink>
+            </article>
+          ))}
+        </div>
+        <div className="coupon-offer">
+          <span className="photo-eyebrow">GC QUAD 쿠폰 레슨</span>
+          <h3>필요한 만큼, 데이터로 스윙 교정</h3>
+          <p>회당 20분 · 정기 패키지와 별도로 선택하는 레슨권</p>
+          <div className="coupon-options">
+            <div>
+              <h4>10회</h4>
+              <strong>390,000원</strong>
+              <span>회당 39,000원</span>
             </div>
             <div>
-              <p>부담 없이 시작하는</p>
-              <h3>1개월 정기 레슨</h3>
+              <h4>20회</h4>
+              <strong>690,000원</strong>
+              <span>회당 34,500원</span>
+              <b>5회권 4개 구매 대비 31만원 절약</b>
             </div>
-            <dl>
-              <div>
-                <dt>레슨 주기</dt>
-                <dd>주 3~4회 · 회당 20분</dd>
-              </div>
-              <div>
-                <dt>레슨비</dt>
-                <dd>상담 시 안내</dd>
-              </div>
-              <div>
-                <dt>타석비</dt>
-                <dd>상담 시 안내</dd>
-              </div>
-            </dl>
-            <KakaoLink className="glass-button package-button">
-              1개월 과정 문의 <ArrowRight aria-hidden="true" />
-            </KakaoLink>
-          </article>
-
-          <article className="regular-package-card regular-package-featured">
-            <div className="package-card-topline">
-              <span>RECOMMENDED</span>
-              <span>03 MONTHS</span>
+          </div>
+          <p>
+            비교 기준: 5회권 250,000원 × 4 = 1,000,000원. 이용 기한과 연습장
+            이용료 포함 여부는 상담 시 확인해 주세요.
+          </p>
+          <KakaoLink className="glass-button">
+            GC QUAD 쿠폰 레슨 문의 <ArrowRight aria-hidden="true" />
+          </KakaoLink>
+        </div>
+        <div className="availability-card">
+          <h3>가격 및 이용 안내</h3>
+          <dl>
+            <div>
+              <dt>레슨 일정</dt>
+              <dd>
+                월 14회 · 회당 20분 · 월/수/금/토. 42회·84회는 월 14회 기준으로
+                계산한 횟수입니다.
+              </dd>
             </div>
             <div>
-              <p>반복으로 변화를 만드는</p>
-              <h3>3개월 정기 레슨</h3>
+              <dt>회원 요금 대상</dt>
+              <dd>
+                기존 회원 / 1년 이상 이용 회원 기준 · 적용 여부는 상담 시 확인
+              </dd>
             </div>
-            <dl>
-              <div>
-                <dt>레슨 주기</dt>
-                <dd>주 3~4회 · 회당 20분</dd>
-              </div>
-              <div>
-                <dt>레슨비</dt>
-                <dd>상담 시 안내</dd>
-              </div>
-              <div>
-                <dt>타석비</dt>
-                <dd>상담 시 안내</dd>
-              </div>
-            </dl>
-            <KakaoLink className="glass-button glass-button-light package-button">
-              3개월 과정 문의 <ArrowRight aria-hidden="true" />
-            </KakaoLink>
-          </article>
+            <div>
+              <dt>이용 시간</dt>
+              <dd>주중 16:00–21:30 · 주말·공휴일 10:00–20:30</dd>
+            </div>
+            <div>
+              <dt>금액 기준</dt>
+              <dd>
+                모든 금액은 현금가입니다. 월 환산 금액은 총액을 기간으로 나눈
+                비교용 금액이며, 월별 결제 금액이 아닙니다.
+              </dd>
+            </div>
+          </dl>
         </div>
       </Reveal>
 
