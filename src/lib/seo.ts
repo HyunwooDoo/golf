@@ -1,16 +1,33 @@
 import type { Metadata } from "next";
 import { site } from "@/lib/site";
 
+// Ignore blank values copied from .env.example. Never publish localhost canonicals.
 const configuredSiteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  process.env.VERCEL_PROJECT_PRODUCTION_URL ??
-  "http://localhost:3000";
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://dooyunkon.pro";
 
-export const siteUrl = (
-  configuredSiteUrl.startsWith("http")
+const parsedSiteUrl = new URL(
+  /^https?:\/\//i.test(configuredSiteUrl)
     ? configuredSiteUrl
-    : `https://${configuredSiteUrl}`
-).replace(/\/$/, "");
+    : `https://${configuredSiteUrl}`,
+);
+
+if (
+  !["http:", "https:"].includes(parsedSiteUrl.protocol) ||
+  parsedSiteUrl.username ||
+  parsedSiteUrl.password ||
+  parsedSiteUrl.pathname !== "/" ||
+  parsedSiteUrl.search ||
+  parsedSiteUrl.hash ||
+  (process.env.NODE_ENV === "production" &&
+    (parsedSiteUrl.protocol !== "https:" ||
+      ["localhost", "127.0.0.1", "[::1]"].includes(parsedSiteUrl.hostname)))
+) {
+  throw new Error(
+    "NEXT_PUBLIC_SITE_URL must be a public HTTPS origin without a path, query, or credentials.",
+  );
+}
+
+export const siteUrl = parsedSiteUrl.origin;
 
 export const siteName = "두윤곤 프로 레슨";
 export const siteDescription =

@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   applicationName: site.brand,
   title: {
     default: `${siteName} | 도봉구 골프 레슨·스윙 분석`,
-    template: `%s | ${site.brand}`,
+    template: `%s | ${siteName}`,
   },
   description: siteDescription,
   keywords: [...seoKeywords],
@@ -47,9 +47,16 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
-    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
-    : undefined,
+  verification: {
+    google:
+      process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim() || undefined,
+    other: process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION?.trim()
+      ? {
+          "naver-site-verification":
+            process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION.trim(),
+        }
+      : undefined,
+  },
   openGraph: {
     type: "website",
     locale: "ko_KR",
@@ -100,6 +107,8 @@ const structuredData = {
       name: siteName,
       description: siteDescription,
       inLanguage: "ko-KR",
+      publisher: { "@id": `${siteUrl}/#person` },
+      about: { "@id": `${siteUrl}/#person` },
     },
     {
       "@type": "SportsActivityLocation",
@@ -122,6 +131,9 @@ const structuredData = {
       "@type": "Person",
       "@id": `${siteUrl}/#person`,
       name: site.proName,
+      alternateName: ["두윤곤 프로", "두윤곤프로"],
+      mainEntityOfPage: absoluteUrl("/"),
+      knowsAbout: ["골프 레슨", "스윙 교정", "GC QUAD 스윙 분석"],
       jobTitle: site.proTitle,
       description: site.proRole,
       image: absoluteUrl("/photos/pro-1.png"),
