@@ -399,7 +399,7 @@ export default function Home() {
               href="/regular-lessons"
               className="glass-button glass-button-light"
             >
-              자세히 보기 <MoveRight aria-hidden="true" />
+              문화골프연습장 정기 레슨 보기 <MoveRight aria-hidden="true" />
             </Link>
           </article>
 

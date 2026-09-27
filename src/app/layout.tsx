@@ -114,6 +114,7 @@ const structuredData = {
       "@type": "SportsActivityLocation",
       "@id": `${siteUrl}/#business`,
       name: siteName,
+      alternateName: [site.place, "도봉구 골프연습장"],
       url: siteUrl,
       image: absoluteUrl("/photos/pro-1.png"),
       description: siteDescription,

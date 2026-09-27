@@ -51,11 +51,17 @@ import {
 } from "@/lib/site";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "도봉구 정기 골프 레슨",
+  title: "문화골프연습장 정기 레슨 | 도봉구 골프 레슨",
   description:
     "서울 도봉구 문화골프연습장에서 두윤곤 프로와 꾸준한 반복, GC QUAD 데이터 분석으로 기본을 완성하는 정기 골프 레슨입니다.",
   path: "/regular-lessons",
-  keywords: ["도봉구 정기 골프 레슨", "문화골프연습장 정기 레슨"],
+  keywords: [
+    "문화골프연습장",
+    "도봉구 골프연습장",
+    "도봉구 골프장",
+    "도봉구 정기 골프 레슨",
+    "문화골프연습장 정기 레슨",
+  ],
 });
 
 const regularPrograms = [
@@ -198,6 +204,9 @@ export default function RegularLessonsPage() {
     <div className="regular-page">
       <section className="regular-hero" aria-labelledby="regular-title">
         <Reveal className="regular-hero-copy">
+          <p className="hero-eyebrow text-center">
+            도봉구 {site.place} · 정기 레슨
+          </p>
           <h1
             id="regular-title"
             className="flex flex-col items-center justify-center text-center"
@@ -209,7 +218,7 @@ export default function RegularLessonsPage() {
             기본을 만듭니다.
           </h1>
           <p className="text-center">
-            {site.place}에서 일정한 주기로 배우고 반복하며,
+            서울 도봉구 {site.place}에서 일정한 주기로 배우고 반복하며,
             <br />매 레슨의 변화를 영상과 데이터로 확인하는 정기 프로그램입니다.
           </p>
         </Reveal>

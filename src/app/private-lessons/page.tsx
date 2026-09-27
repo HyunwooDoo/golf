@@ -271,7 +271,7 @@ export default function PrivateLessonsPage() {
               <li>반복으로 동작 정착</li>
             </ul>
             <Link href="/regular-lessons">
-              정기 레슨 보기 <MoveRight aria-hidden="true" />
+              문화골프연습장 정기 레슨 보기 <MoveRight aria-hidden="true" />
             </Link>
           </article>
 
