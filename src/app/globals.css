@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Palette: white · beige · gold with orange as the single accent. */
+/* Palette: white · beige · gold, with orange as the single accent. */
 :root {
   --background: #ffffff;
   --surface: #faf5ec;
